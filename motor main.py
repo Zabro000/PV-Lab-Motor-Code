@@ -18,7 +18,7 @@ rated_voltage = 12
 test_voltage = 10
 step_angle = None
 FPS = 60 
-clock = pygame.time.Clock
+clock = pygame.time.Clock()
 
 
 def step_angle_finder() ->float:
@@ -80,8 +80,25 @@ def motor_calibrate(angle_right_now) ->float:
 
 
     
+def test_keys():
+    FPS = 60
+
+    running = True 
+    while running:
+
+        clock.tick(FPS)
+
+        key_state =  pygame.key.get_pressed()
+
+        if key_state[pygame.K_a]:
+            print("lol")
+        
+        if key_state[pygame.K_SPACE]:
+            print("done")
+            running = False
 
 
 
 
-motor_test(step_angle)
+test_keys()
+#motor_test(step_angle)
