@@ -3,10 +3,6 @@ from Phidget22.Phidget import *
 from Phidget22.Devices.VoltageInput import *
 from Phidget22.Devices.Stepper import * ## make sure that the stepper driver is installed
 import time
-import math
-import pygame
-
-
 
 
 voltage_right_now = None
@@ -17,8 +13,6 @@ test_current = 0.2
 rated_voltage = 12
 test_voltage = 10
 step_angle = None
-FPS = 60 
-clock = pygame.time.Clock()
 
 
 def step_angle_finder() ->float:
@@ -121,7 +115,7 @@ def motor_run(starting_angle = 0.0, starting_steps = 0.0, current_position = Non
     while stepper.getIsMoving() == True:
         pass
 
-    print("Stepper is done!")
+    print("Increment is done!")
     current_position += increment
     
     return current_position
