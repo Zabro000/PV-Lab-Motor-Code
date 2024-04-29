@@ -74,6 +74,7 @@ def motor_calibrate(angle_right_now = 0.0) ->None:
         temp_value = temp_value.lower()
 
         if temp_value == "done":
+            stepper.close()
             break
 
         try:
@@ -86,10 +87,41 @@ def motor_calibrate(angle_right_now = 0.0) ->None:
             while stepper.getIsMoving() == True:
                 pass
 
+    stepper.close()
 
 
 
 
+### use outside code, this will run an incriment then stop and it will run the same incriment each time should be used in a for loop or something, will not stop the stepper
+def motor_run(starting_angle = 0.0, starting_steps = 0.0, current_position = None, increment = None) -> None:
+    
+    try:
+        stepper = Stepper()
+        stepper.setAcceleration(1000)
+        stepper.setControlMode(StepperControlMode.CONTROL_MODE_RUN)
+        factor = (1/16) * (1.8/1)
+        stepper.setRescaleFactor(factor)
+        forwards_velocity = 1000
+        backwards_velocity = -1000
+        stepper.openWaitForAttachment(5000)
+        stepper.setEngaged(True)
+    except PhidgetException:
+        print("The motor controller is not connected... There error is: ", PhidgetException)
+        return
+    
+    if increment == None:
+        increment = 10
+    
+    if current_position == None:
+        current_position = 0
+    
+    stepper.setTargetPosition(increment)
+    current_position += increment
+
+    while stepper.getIsMoving() == True:
+        pass
+
+    print("Stepper is done!")
 
 
 
@@ -99,5 +131,6 @@ print(step_angle_finder())
 
 
 motor_calibrate()
+motor_run()
 #motor_test(step_angle)
 
