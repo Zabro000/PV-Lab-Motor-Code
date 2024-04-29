@@ -48,57 +48,56 @@ def motor_test(angle_per_step, max_current = None) -> None:
 
 
 
-def motor_calibrate(angle_right_now) ->float:
-    running = True
-    FPS = 60
-    stepper = Stepper()
-    stepper.openWaitForAttachment(5000)
-    stepper.setAcceleration(1000)
-    stepper.setControlMode(StepperControlMode.CONTROL_MODE_RUN)
-    forwards_velocity = 1000
-    backwards_velocity = -1000
-
-
-    while running:
-        clock.tick(FPS)
-
-        for event in pygame.event.get():
-
-            if event.type == pygame.K_w:
-                stepper.setVelocityLimit(forwards_velocity)
-                stepper.setEngaged(True)
-
-            if event.type == pygame.K_s: 
-                stepper.setVelocityLimit(backwards_velocity)
-                stepper.setEngaged(True)
-            
-            stepper.setEngaged(False)
-
-            if event.type == pygame.K_ESCAPE:
-                stepper.close()
-                running = False 
-
-
+def motor_calibrate(angle_right_now = None) ->float:
+    print("Type any number for the steps you want it to move and type, done, to stop the this loop.", '\n')
     
-def test_keys():
-    FPS = 60
+    
+    try:
+        stepper = Stepper()
+        stepper.setAcceleration(1000)
+        stepper.setControlMode(StepperControlMode.CONTROL_MODE_RUN)
+        factor = (1/16) * (1.8/1)
+        stepper.setRescaleFactor(factor)
+        forwards_velocity = 1000
+        backwards_velocity = -1000
+        stepper.openWaitForAttachment(5000)
+        stepper.setEngaged(True)
+    except PhidgetException:
+        print("The motor controller is not connected... There error is: ", PhidgetException)
+        return
+    
 
-    running = True 
-    while running:
+    while True:
+        print("Input a value:", '\n')
+        temp_value = input()
+        print('\n')
+        temp_value = temp_value.lower()
 
-        clock.tick(FPS)
+        if temp_value == "done":
+            break
 
-        key_state =  pygame.key.get_pressed()
+        try:
+            temp_value = float(temp_value)
+        except:
+            print("Not a number...", '\n')
+            pass
+        else:
+            stepper.setTargetPosition(temp_value)
+            while stepper.getIsMoving() == True:
+                pass
 
-        if key_state[pygame.K_a]:
-            print("lol")
-        
-        if key_state[pygame.K_SPACE]:
-            print("done")
-            running = False
 
 
 
 
-test_keys()
+
+
+
+
+
+print(step_angle_finder())
+
+
+motor_calibrate()
 #motor_test(step_angle)
+
