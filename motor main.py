@@ -92,7 +92,7 @@ def motor_run(starting_angle = 0.0, starting_steps = 0.0, current_position = Non
     
     stepper = Stepper()
     stepper.openWaitForAttachment(5000)
-    stepper.setAcceleration(1000)
+    stepper.setAcceleration(2000)
     stepper.setControlMode(StepperControlMode.CONTROL_MODE_STEP)
     forwards_velocity = 1000
     backwards_velocity = -1000
@@ -124,8 +124,10 @@ print(step_angle_finder())
 
 
 
-motor_test(9)
-motor_test(9)
-motor_run()
+for index in range(0,3):
+    motor_run()
+    time.sleep(1)
+    
+
 #motor_test(step_angle)
 
