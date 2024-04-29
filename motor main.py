@@ -43,7 +43,6 @@ def motor_test(angle_per_step, max_current = None) -> None:
 
 # I might have to remvove the code that closes the stepper.
 def motor_calibrate(angle_right_now = 0.0) ->None:
-    print("Type any number for the steps you want it to move and type, done, to stop the this loop.", '\n')
     
     
     try:
@@ -60,6 +59,7 @@ def motor_calibrate(angle_right_now = 0.0) ->None:
         print("The motor controller is not connected... There error is: ", PhidgetException)
         return
     
+    print("Type any number for the steps you want it to move and type, done, to stop the this loop.", '\n')
 
     while True:
         print("Input a value:", '\n')
