@@ -47,7 +47,7 @@ def motor_test(angle_per_step, max_current = None) -> None:
     test_stepper.close()
 
 
-
+# I might have to remvove the code that closes the stepper.
 def motor_calibrate(angle_right_now = 0.0) ->None:
     print("Type any number for the steps you want it to move and type, done, to stop the this loop.", '\n')
     
@@ -74,7 +74,6 @@ def motor_calibrate(angle_right_now = 0.0) ->None:
         temp_value = temp_value.lower()
 
         if temp_value == "done":
-            stepper.close()
             break
 
         try:
@@ -89,11 +88,13 @@ def motor_calibrate(angle_right_now = 0.0) ->None:
 
     stepper.close()
 
+    return angle_right_now
+
 
 
 
 ### use outside code, this will run an incriment then stop and it will run the same incriment each time should be used in a for loop or something, will not stop the stepper
-def motor_run(starting_angle = 0.0, starting_steps = 0.0, current_position = None, increment = None) -> None:
+def motor_run(starting_angle = 0.0, starting_steps = 0.0, current_position = None, increment = None) -> float:
     
     try:
         stepper = Stepper()
@@ -116,12 +117,14 @@ def motor_run(starting_angle = 0.0, starting_steps = 0.0, current_position = Non
         current_position = 0
     
     stepper.setTargetPosition(increment)
-    current_position += increment
 
     while stepper.getIsMoving() == True:
         pass
 
     print("Stepper is done!")
+    current_position += increment
+    
+    return current_position
 
 
 
