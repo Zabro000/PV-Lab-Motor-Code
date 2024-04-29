@@ -12,8 +12,9 @@ max_current = 0.35
 test_current = 0.2
 rated_voltage = 12
 test_voltage = 10
-step_angle = None
+steps_per_angle = 8.47
 
+step_per_angle = 160/10 #160 steps per 10 degrees
 
 def step_angle_finder() ->float:
     return 360 / 200
@@ -53,6 +54,8 @@ def motor_calibrate(angle_right_now = 0.0) ->None:
     forwards_velocity = 1000
     backwards_velocity = -1000
     stepper.setEngaged(True)
+    stepper.setVelocityLimit(5000)
+
     temp_value = 0
 
        
@@ -78,6 +81,8 @@ def motor_calibrate(angle_right_now = 0.0) ->None:
             stepper.setTargetPosition(temp_value)
             while stepper.getIsMoving() == True:
                 pass
+        
+        temp_value = 0 
 
     stepper.close()
 
@@ -92,7 +97,7 @@ def motor_run(starting_angle = 0.0, starting_steps = 0.0, current_position = Non
     
     stepper = Stepper()
     stepper.openWaitForAttachment(5000)
-    stepper.setAcceleration(2000)
+    stepper.setAcceleration(500)
     stepper.setControlMode(StepperControlMode.CONTROL_MODE_STEP)
     forwards_velocity = 1000
     backwards_velocity = -1000
@@ -101,7 +106,7 @@ def motor_run(starting_angle = 0.0, starting_steps = 0.0, current_position = Non
 
     
     if increment == None:
-        increment = 100
+        increment = 10 * 10 
     
     if current_position == None:
         current_position = 0
@@ -124,7 +129,7 @@ print(step_angle_finder())
 
 
 
-for index in range(0,3):
+for index in range(0,9):
     motor_run()
     time.sleep(1)
     
