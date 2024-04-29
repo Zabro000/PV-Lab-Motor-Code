@@ -14,10 +14,10 @@ rated_voltage = 12
 test_voltage = 10
 steps_per_angle_for_large_nputs = 8.47
 
-wait_time = 10 #This should be longer
+wait_time = 6 #This should be longer
 
 degree_increment = 10 #degrees for the incriment for the motor
-steps_per_angle_for_small_inputs = 9.4 #steps per angle for small inputs 
+steps_per_angle_for_small_inputs = 10 #steps per angle for small inputs 
 for_loop_increments = 9 # nine for loop incriments
 
 csv_data_file_name = "Angle Voltage Current Energy Time Photons.csv"
@@ -131,6 +131,7 @@ for i in range(0, for_loop_increments):
 
     
 
+    time.sleep(wait_time)
     temp_steps, temp_angle = motor_run(angle_increment= degree_increment, steps_per_angle= steps_per_angle_for_small_inputs)
     total_angle += temp_angle 
     total_steps += temp_steps
