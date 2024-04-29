@@ -48,7 +48,7 @@ def motor_test(angle_per_step, max_current = None) -> None:
 
 
 
-def motor_calibrate(angle_right_now = None) ->float:
+def motor_calibrate(angle_right_now = 0.0) ->None:
     print("Type any number for the steps you want it to move and type, done, to stop the this loop.", '\n')
     
     
