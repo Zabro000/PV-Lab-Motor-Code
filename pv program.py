@@ -34,57 +34,24 @@ def motor_test() -> None:
     test_stepper.setEngaged(True)
 
 
-    for i in range(1,4):
+    for i in range(1,3):
         test_stepper.setTargetPosition(steps * i)
         test_stepper.setEngaged(True)
 
         while test_stepper.getIsMoving() == True:
             pass
-        
 
+    for i in range(1,3):
+        test_stepper.setTargetPosition(-steps * i)
+        test_stepper.setEngaged(True)
 
-
-
-
-def motor_calibrate(angle_right_now = 0.0) ->None:
-
-    stepper = Stepper()
-    stepper.openWaitForAttachment(5000)
-    stepper.setAcceleration(500)
-    stepper.setControlMode(StepperControlMode.CONTROL_MODE_STEP)
-    stepper.setEngaged(True)
-
-    temp_value = 0
-
-    print("Type any number for the steps you want it to move and type, done, to stop the this loop.", '\n')
-
-    while True:
-        print("Input a value:", '\n')
-        temp_value = input()
-        print('\n')
-        temp_value = temp_value.lower()
-
-        if temp_value == "done":
-            break
-
-        try:
-            temp_value = float(temp_value)
-        except:
-            print("Not a number...", '\n')
+        while test_stepper.getIsMoving() == True:
             pass
-        else:
-            stepper.setTargetPosition(temp_value)
-            while stepper.getIsMoving() == True:
-                pass
-        
-        temp_value = 0 
-
-    stepper.close()
-
-    return angle_right_now
 
 
 
+    
+    
 
 def motor_run(starting_angle = 0.0, starting_steps = 0.0, current_position_angle = None, angle_increment = None, steps_per_angle = None) -> float:
     
@@ -119,18 +86,15 @@ voltage_list = []
 current_list =[]
 
 
-
-    #######################################################################################################
+#######################################################################################################
 
 
 
 print("THE LOOP IS STARTING")
 input()
 
-#motor_test() 
-#motor_test()
 
-input("Press space to start the main for loop")
+input("The tests are done so press another time to start the main loop")
 
 
 
@@ -146,10 +110,27 @@ stepper.setTargetPosition(temp_steps)
 stepper.setEngaged(True)
 
 
+starting_time = time.time()
+print(starting_time)
+
+right_now_time = time.time()
+print(right_now_time)
+
+
 
 for i in range(1, for_loop_increments + 1):
+    print("going again")
+    print(right_now_time)
+
+    right_now_time = time.time()
+    starting_time = time.time()
+
+
+    while right_now_time > starting_time + 10:
+        print("wait")
+        right_now_time = time.time()
     
-    
+
     
     stepper.setTargetPosition(temp_steps * i)
     stepper.setEngaged(True)
@@ -162,6 +143,8 @@ for i in range(1, for_loop_increments + 1):
 
     angle_list.append(total_angle)
         
+
+
 
 print(angle_list)
 print(total_steps)
