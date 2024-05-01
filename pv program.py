@@ -1,7 +1,8 @@
 #libraries needed
 from Phidget22.Phidget import *
+from Phidget22.Devices.CurrentInput import *
 from Phidget22.Devices.VoltageInput import *
-from Phidget22.Devices.Stepper import * ## make sure that the stepper driver is installed
+from Phidget22.Devices.Stepper import *
 import time
 import keyboard
 
@@ -79,12 +80,33 @@ def motor_run(starting_angle = 0.0, starting_steps = 0.0, current_position_angle
 
 
 
+
+
+def volt_and_current_test() -> float:
+    current = CurrentInput()
+    voltage = VoltageInput()
+    temp_volt = voltage.getVoltage()
+    temp_current = current.getCurrent()
+
+    return temp_volt, temp_current
+
+
+
+
+
+
+
+
+
+
 total_angle = 0.0
 total_steps = 0.0
 
 angle_list = [total_angle]
 voltage_list = []
+temp_voltage_list = []
 current_list =[]
+temp_current_list =[]
 
 
 #######################################################################################################
@@ -128,6 +150,8 @@ for index in range(1, for_loop_increments + 1):
     # This is the loop for the voltage and current measruement
     while starting_time + wait_time > right_now_time:
         print("wait")
+        temp_voltage, temp_current = volt_and_current_test()
+        temp_voltage_list.append(temp_voltage)
         right_now_time = time.time()
     
 
@@ -137,6 +161,11 @@ for index in range(1, for_loop_increments + 1):
 
     while stepper.getIsMoving() == True:
         pass
+
+
+
+
+
 
     total_angle += degree_increment 
     total_steps += temp_steps
