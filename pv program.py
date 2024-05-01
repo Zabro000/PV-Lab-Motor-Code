@@ -3,6 +3,7 @@ from Phidget22.Phidget import *
 from Phidget22.Devices.VoltageInput import *
 from Phidget22.Devices.Stepper import * ## make sure that the stepper driver is installed
 import time
+import keyboard
 
 
 voltage_right_now = None
