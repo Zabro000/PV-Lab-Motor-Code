@@ -140,7 +140,6 @@ stepper.setAcceleration(500)
 stepper.setControlMode(StepperControlMode.CONTROL_MODE_STEP)
 
 
-
 temp_steps = Steps_Convert(degree_increment, steps_per_angle_for_large_nputs)
 
 stepper.setTargetPosition(temp_steps)
@@ -165,6 +164,7 @@ for i in range(1, for_loop_increments + 1):
         
 
 print(angle_list)
+print(total_steps)
 
 
 raise OSError
