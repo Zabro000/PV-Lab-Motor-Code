@@ -19,6 +19,7 @@ wait_time = 6 #This should be longer
 degree_increment = 10 #degrees for the incriment for the motor
 steps_per_angle_for_small_inputs = 10 #steps per angle for small inputs 
 for_loop_increments = 9 # nine for loop incriments
+for_loop_measuring_increments = for_loop_increments + 1
 
 csv_data_file_name = "Angle Voltage Current Energy Time Photons.csv"
 
@@ -29,13 +30,14 @@ def motor_test() -> None:
     test_stepper = Stepper()
     test_stepper.openWaitForAttachment(5000)
     test_stepper.setAcceleration(5000)
-    test_stepper.setTargetPosition(1000)
+    steps = Steps_Convert(10, 10)
+    test_stepper.setTargetPosition(steps)
     test_stepper.setEngaged(True)
 
     while test_stepper.getIsMoving() == True:
         pass
 	
-    test_stepper.setTargetPosition(-1000)
+    test_stepper.setTargetPosition(2 * steps)
 
     while test_stepper.getIsMoving() == True:
         pass
@@ -123,6 +125,11 @@ current_list =[]
 
 print("THE LOOP IS STARTING")
 input()
+
+motor_test() 
+motor_test()
+
+raise OSError
 
 
 for i in range(0, for_loop_increments):
