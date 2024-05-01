@@ -15,7 +15,7 @@ rated_voltage = 12
 test_voltage = 10
 steps_per_angle_for_large_nputs = 8
 
-wait_time = 6 #This should be longer
+wait_time = 3 #This should be longer
 
 degree_increment = 10 #degrees for the incriment for the motor
 steps_per_angle_for_small_inputs = 10 #steps per angle for small inputs 
@@ -126,7 +126,7 @@ for index in range(1, for_loop_increments + 1):
     starting_time = time.time()
 
     # This is the loop for the voltage and current measruement
-    while starting_time + 10 > right_now_time:
+    while starting_time + wait_time > right_now_time:
         print("wait")
         right_now_time = time.time()
     
@@ -148,6 +148,11 @@ for index in range(1, for_loop_increments + 1):
 
 print(angle_list)
 print(total_steps)
+
+stepper.setTargetPosition(-(total_steps/2))
+while stepper.getIsMoving() == True:
+    pass
+
 
 
 raise OSError
