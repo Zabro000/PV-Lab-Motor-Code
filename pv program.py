@@ -12,7 +12,7 @@ max_current = 0.35
 test_current = 0.2
 rated_voltage = 12
 test_voltage = 10
-steps_per_angle_for_large_nputs = 8.47
+steps_per_angle_for_large_nputs = 8
 
 wait_time = 6 #This should be longer
 
@@ -31,16 +31,17 @@ def motor_test() -> None:
     test_stepper.openWaitForAttachment(5000)
     test_stepper.setAcceleration(5000)
     steps = Steps_Convert(10, 10)
-    test_stepper.setTargetPosition(steps)
     test_stepper.setEngaged(True)
 
-    while test_stepper.getIsMoving() == True:
-        pass
-	
-    test_stepper.setTargetPosition(2 * steps)
 
-    while test_stepper.getIsMoving() == True:
-        pass
+    for i in range(1,4):
+        test_stepper.setTargetPosition(steps * i)
+        test_stepper.setEngaged(True)
+
+        while test_stepper.getIsMoving() == True:
+            pass
+        
+
 
 
 
@@ -126,10 +127,48 @@ current_list =[]
 print("THE LOOP IS STARTING")
 input()
 
-motor_test() 
-motor_test()
+#motor_test() 
+#motor_test()
+
+input("Press space to start the main for loop")
+
+
+
+stepper = Stepper()
+stepper.openWaitForAttachment(5000)
+stepper.setAcceleration(500)
+stepper.setControlMode(StepperControlMode.CONTROL_MODE_STEP)
+
+
+
+temp_steps = Steps_Convert(degree_increment, steps_per_angle_for_large_nputs)
+
+stepper.setTargetPosition(temp_steps)
+stepper.setEngaged(True)
+
+
+
+for i in range(1, for_loop_increments + 1):
+    
+    
+    
+    stepper.setTargetPosition(temp_steps * i)
+    stepper.setEngaged(True)
+
+    while stepper.getIsMoving() == True:
+        pass
+
+    total_angle += degree_increment 
+    total_steps += temp_steps
+
+    angle_list.append(total_angle)
+        
+
+print(angle_list)
+
 
 raise OSError
+
 
 
 for i in range(0, for_loop_increments):
