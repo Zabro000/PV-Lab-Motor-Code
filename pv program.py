@@ -117,22 +117,21 @@ right_now_time = time.time()
 print(right_now_time)
 
 
+# Right now they are the same, remeber this is in seconds
 
-for i in range(1, for_loop_increments + 1):
-    print("going again")
-    print(right_now_time)
+for index in range(1, for_loop_increments + 1):
 
     right_now_time = time.time()
     starting_time = time.time()
 
-
-    while right_now_time > starting_time + 10:
+    # This is the loop for the voltage and current measruement
+    while starting_time + 10 > right_now_time:
         print("wait")
         right_now_time = time.time()
     
 
     
-    stepper.setTargetPosition(temp_steps * i)
+    stepper.setTargetPosition(temp_steps * index)
     stepper.setEngaged(True)
 
     while stepper.getIsMoving() == True:
