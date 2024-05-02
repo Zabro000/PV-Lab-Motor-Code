@@ -85,6 +85,8 @@ def motor_run(starting_angle = 0.0, starting_steps = 0.0, current_position_angle
 def volt_and_current_test() -> float:
     current = CurrentInput()
     voltage = VoltageInput()
+    current.openWaitForAttachment(5000)
+    voltage.openWaitForAttachment(5000)
     temp_volt = voltage.getVoltage()
     temp_current = current.getCurrent()
 
@@ -152,6 +154,7 @@ for index in range(1, for_loop_increments + 1):
         print("wait")
         temp_voltage, temp_current = volt_and_current_test()
         temp_voltage_list.append(temp_voltage)
+        temp_current_list.append(temp_current)
         right_now_time = time.time()
     
 
@@ -161,9 +164,6 @@ for index in range(1, for_loop_increments + 1):
 
     while stepper.getIsMoving() == True:
         pass
-
-
-
 
 
 
@@ -177,33 +177,11 @@ for index in range(1, for_loop_increments + 1):
 
 print(angle_list)
 print(total_steps)
+print(temp_voltage_list)
 
 stepper.setTargetPosition(-(total_steps/2))
 while stepper.getIsMoving() == True:
     pass
-
-
-
-raise OSError
-
-
-
-for i in range(0, for_loop_increments):
-    # Put the voltage code right here
-
-
-    
-
-    time.sleep(wait_time)
-    temp_steps, temp_angle = motor_run(angle_increment= degree_increment, steps_per_angle= steps_per_angle_for_small_inputs)
-    total_angle += temp_angle 
-    total_steps += temp_steps
-
-    angle_list.append(total_angle)
-
-
-
-print(angle_list)
 
 
 
