@@ -151,7 +151,6 @@ for index in range(1, for_loop_increments + 1):
 
     # This is the loop for the voltage and current measruement
     while starting_time + wait_time > right_now_time:
-        print("wait")
         temp_voltage, temp_current = volt_and_current_test()
         temp_voltage_list.append(temp_voltage)
         temp_current_list.append(temp_current)
