@@ -5,6 +5,7 @@ from Phidget22.Devices.VoltageInput import *
 from Phidget22.Devices.Stepper import *
 import time
 import keyboard
+import csv
 
 
 voltage_right_now = None
@@ -16,7 +17,7 @@ rated_voltage = 12
 test_voltage = 10
 steps_per_angle_for_large_nputs = 8
 
-wait_time = 3 #This should be longer
+wait_time = 2 #This should be longer
 
 degree_increment = 10 #degrees for the incriment for the motor
 steps_per_angle_for_small_inputs = 10 #steps per angle for small inputs 
@@ -96,19 +97,16 @@ def volt_and_current_test() -> float:
 
 
 
-
-
-
-
-
 total_angle = 0.0
 total_steps = 0.0
 
 angle_list = [total_angle]
 voltage_list = []
 temp_voltage_list = []
-current_list =[]
-temp_current_list =[]
+current_list = []
+temp_current_list = []
+time_list = []
+full_list=  [0]
 
 
 #######################################################################################################
@@ -151,25 +149,38 @@ for index in range(1, for_loop_increments + 1):
 
     # This is the loop for the voltage and current measruement
     while starting_time + wait_time > right_now_time:
-        temp_voltage, temp_current = volt_and_current_test()
-        temp_voltage_list.append(temp_voltage)
-        temp_current_list.append(temp_current)
+        #temp_voltage, temp_current = volt_and_current_test()
+       # temp_voltage_list.append(temp_voltage)
+        #temp_current_list.append(temp_current)
         right_now_time = time.time()
     
 
     
     stepper.setTargetPosition(temp_steps * index)
     stepper.setEngaged(True)
+    
 
     while stepper.getIsMoving() == True:
         pass
 
 
 
+    right_now_time = time.time()
+
+    time_temp = right_now_time - starting_time 
+
+
     total_angle += degree_increment 
     total_steps += temp_steps
 
+
+    time_list.append(time_temp)
+
     angle_list.append(total_angle)
+
+    full_list.append(time_temp)
+    full_list.append(total_angle)
+
         
 
 
@@ -177,6 +188,20 @@ for index in range(1, for_loop_increments + 1):
 print(angle_list)
 print(total_steps)
 print(temp_voltage_list)
+print("time ", time_list)
+print("timeeee0", full_list)
+
+
+
+csv_name = "Degrees and Time.csv"
+with open(csv_name, 'w') as file:
+    write = csv.writer(file)
+    write.writerow(["Angle:"])
+    write.writerow(angle_list)
+    write.writerow(["Delta Time:"])
+    write.writerow(time_list)
+
+
 
 stepper.setTargetPosition(-(total_steps/2))
 while stepper.getIsMoving() == True:
