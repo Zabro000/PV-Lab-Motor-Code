@@ -141,8 +141,9 @@ print(right_now_time)
 
 
 # Right now they are the same, remeber this is in seconds
+temp_loop = 0
 
-for index in range(1, for_loop_increments + 1):
+while for_loop_measuring_increments > temp_loop:
 
     right_now_time = time.time()
     starting_time = time.time()
@@ -156,7 +157,7 @@ for index in range(1, for_loop_increments + 1):
     
 
     
-    stepper.setTargetPosition(temp_steps * index)
+    stepper.setTargetPosition(temp_steps * temp_loop)
     stepper.setEngaged(True)
     
 
@@ -180,6 +181,7 @@ for index in range(1, for_loop_increments + 1):
 
     full_list.append(time_temp)
     full_list.append(total_angle)
+    temp_loop += 1
 
         
 
@@ -220,7 +222,7 @@ while stepper.getIsMoving() == True:
 
 
 
-
+#lists = {'10 degrees': 10, '20': 20, }
 
 
 
