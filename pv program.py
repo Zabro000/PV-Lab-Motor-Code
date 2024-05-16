@@ -17,7 +17,7 @@ rated_voltage = 12
 test_voltage = 10
 steps_per_angle_for_large_nputs = 8
 
-wait_time = 12 #This should be longer
+wait_time = 2 #This should be longer
 
 degree_increment = 10 #degrees for the incriment for the motor
 steps_per_angle_for_small_inputs = 10 #steps per angle for small inputs 
@@ -154,7 +154,7 @@ for index in range(1, for_loop_increments + 1):
         #temp_current_list.append(temp_current)
         right_now_time = time.time()
     
-
+#goodd
     
     stepper.setTargetPosition(temp_steps * index)
     stepper.setEngaged(True)
@@ -221,6 +221,15 @@ while stepper.getIsMoving() == True:
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+>>>>>>> 2c4a3babfcaefa55aa8b851e7b80fee7855b7bee
 
 
 
