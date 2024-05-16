@@ -1,4 +1,5 @@
 #libraries needed
+#venv\Scripts\Activate.ps1
 from Phidget22.Phidget import *
 from Phidget22.Devices.CurrentInput import *
 from Phidget22.Devices.VoltageInput import *
@@ -15,12 +16,15 @@ max_current = 0.35
 test_current = 0.2
 rated_voltage = 12
 test_voltage = 10
-steps_per_angle_for_large_nputs = 8
 
-wait_time = 2 #This should be longer
+# change this:
+steps_per_angle_for_large_nputs = 9
+
+wait_time = 20 #This should be longer
+
 
 degree_increment = 10 #degrees for the incriment for the motor
-steps_per_angle_for_small_inputs = 10 #steps per angle for small inputs 
+steps_per_angle_for_small_inputs = 12 #steps per angle for small inputs 
 for_loop_increments = 9 # nine for loop incriments
 for_loop_measuring_increments = for_loop_increments + 1
 
@@ -153,6 +157,7 @@ for index in range(1, for_loop_increments + 1):
        # temp_voltage_list.append(temp_voltage)
         #temp_current_list.append(temp_current)
         right_now_time = time.time()
+        print(right_now_time-starting_time)
     
 #goodd
     
@@ -203,9 +208,9 @@ with open(csv_name, 'w') as file:
 
 
 
-stepper.setTargetPosition(-(total_steps/2))
-while stepper.getIsMoving() == True:
-    pass
+#stepper.setTargetPosition(-(total_steps/2))
+#while stepper.getIsMoving() == True:
+   # pass
 
 
 
@@ -217,19 +222,6 @@ while stepper.getIsMoving() == True:
 
 
 
-
-
-
-
-<<<<<<< HEAD
-=======
-
-
-
-
-
-
->>>>>>> 2c4a3babfcaefa55aa8b851e7b80fee7855b7bee
 
 
 
